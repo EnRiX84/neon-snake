@@ -954,6 +954,9 @@ function startGame() {
   gameTimer = setInterval(gameStep, G.speed);
 }
 
+// ── MOBILE TAP FIX ──────────────────────────────────────────
+document.addEventListener('touchend',function(e){var b=e.target.closest('.btn,.btn-sm,.sk,.diff-btn,.music-btn');if(b){e.preventDefault();b.click();}},{passive:false});
+
 // ── INPUT ────────────────────────────────────────────────────
 function setDir(dx, dy) {
   // Prevent reversing direction
