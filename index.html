@@ -202,6 +202,13 @@ canvas{display:block;touch-action:none}
 @keyframes tap{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(.85) translateY(6px)}}
 .tut-text{font-family:var(--fh);font-size:clamp(18px,5vw,26px);font-weight:900;letter-spacing:3px;color:#fff;text-align:center}
 .tut-sub{font-family:var(--fu);font-size:clamp(12px,3vw,14px);letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:center;max-width:320px}
+.inst-title{font-family:var(--fh);font-size:clamp(20px,5vw,28px);font-weight:900;letter-spacing:3px;color:var(--accent)}
+.inst-icon{font-size:clamp(40px,10vw,56px);margin-bottom:4px}
+.inst-section{width:100%;max-width:340px;text-align:center}
+.inst-section h3{font-family:var(--fh);font-size:clamp(11px,2.8vw,13px);font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.inst-row{font-family:var(--fu);font-size:clamp(11px,2.8vw,13px);color:var(--text);line-height:2;letter-spacing:1px}
+.inst-row b{color:var(--accent)}
+.inst-tip{font-family:var(--fu);font-size:clamp(10px,2.5vw,12px);color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
 
 /* ═══ MUSIC TOGGLE ═══════════════════════════════════════════ */
 .music-btn{
@@ -284,6 +291,7 @@ canvas{display:block;touch-action:none}
       <button class="sk solar"   data-skin="skin-solar" title="Solar Flare"></button>
     </div>
     <button class="btn" id="b-play">&#9654; Play</button>
+    <button class="btn btn-sm" id="b-inst">How to Play</button>
     <button class="btn btn-sm" id="b-lb1">Leaderboard</button>
   </div>
 
@@ -305,6 +313,21 @@ canvas{display:block;touch-action:none}
     <div class="lb-title">Leaderboard</div>
     <div id="lb-table"></div>
     <button class="btn btn-sm" id="b-back">&larr; Back</button>
+  </div>
+
+  <div id="s-inst" class="screen hidden">
+    <div class="inst-icon">&#128013;</div>
+    <div class="inst-title">HOW TO PLAY</div>
+    <div class="inst-section">
+      <h3>Objective</h3>
+      <div class="inst-row">Eat food to grow longer.<br>Don't hit yourself!<br>Grab bonus food for 50 pts.</div>
+    </div>
+    <div class="inst-section">
+      <h3>Controls</h3>
+      <div class="inst-row"><b>WASD</b> / <b>Arrow keys</b><br><b>D-pad</b> on mobile</div>
+    </div>
+    <div class="inst-tip">Easy mode: walls wrap around</div>
+    <button class="btn btn-sm" id="b-inst-back">Back</button>
   </div>
 
 </div>
@@ -919,7 +942,7 @@ function endGame() {
 
 // ── SCREEN MANAGER ───────────────────────────────────────────
 function showScreen(id) {
-  ['s-home','s-go','s-lb'].forEach(s => {
+  ['s-home','s-go','s-lb','s-inst'].forEach(s => {
     document.getElementById(s).classList.toggle('hidden', id === null || s !== id);
   });
   document.getElementById('hud').classList.add('hidden');
@@ -1039,6 +1062,8 @@ document.getElementById('b-back').addEventListener('click', function() {
     animatePreview();
   }
 });
+document.getElementById('b-inst').addEventListener('click',function(){showScreen('s-inst');});
+document.getElementById('b-inst-back').addEventListener('click',function(){showScreen('s-home');cancelAnimationFrame(previewAnim);animatePreview();});
 
 // ── SKIN PICKER ──────────────────────────────────────────────
 document.querySelectorAll('.sk').forEach(btn => {
