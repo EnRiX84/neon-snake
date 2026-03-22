@@ -420,7 +420,7 @@ let MUS = null;
 
 function startMusic() {
   if (!musicOn || MUS) return;
-  if (AC.state === 'suspended') AC.resume();
+  AC = getAC(); if (AC.state === 'suspended') AC.resume();
   const master = AC.createGain();
   master.gain.value = 0;
   const filter = AC.createBiquadFilter();
