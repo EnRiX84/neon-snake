@@ -213,6 +213,8 @@ canvas{display:block;touch-action:none}
 }
 .music-btn:hover{border-color:var(--text);color:var(--text)}
 .music-btn.on{border-color:var(--accent);color:var(--accent)}
+.menu-btn{pointer-events:auto;background:rgba(0,0,0,.35);border:1px solid var(--dim);color:var(--dim);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;line-height:1;align-self:center}
+.menu-btn:hover,.menu-btn:active{border-color:var(--text);color:var(--text);background:rgba(0,0,0,.5)}
 </style>
 </head>
 <body>
@@ -239,6 +241,7 @@ canvas{display:block;touch-action:none}
         <span class="hud-label">Score</span>
         <span class="hud-value" id="hs">0</span>
       </div>
+      <button class="menu-btn" id="b-menu" title="Menu">&#10005;</button>
       <div class="hud-box" style="text-align:right">
         <span class="hud-label">Best</span>
         <span class="hud-value" id="hb">0</span>
@@ -955,7 +958,7 @@ function startGame() {
 }
 
 // ── MOBILE TAP FIX ──────────────────────────────────────────
-document.addEventListener('touchend',function(e){var b=e.target.closest('.btn,.btn-sm,.sk,.diff-btn,.music-btn');if(b){e.preventDefault();b.click();}},{passive:false});
+document.addEventListener('touchend',function(e){var b=e.target.closest('.btn,.btn-sm,.sk,.diff-btn,.music-btn,.menu-btn');if(b){e.preventDefault();b.click();}},{passive:false});
 
 // ── INPUT ────────────────────────────────────────────────────
 function setDir(dx, dy) {
@@ -1019,6 +1022,7 @@ document.getElementById('b-home').addEventListener('click', () => {
   cancelAnimationFrame(previewAnim);
   animatePreview();
 });
+document.getElementById('b-menu').addEventListener('click',function(){clearInterval(gameTimer);gameTimer=null;document.getElementById('dpad').classList.remove('show');showScreen('s-home');cancelAnimationFrame(previewAnim);animatePreview();});
 
 document.getElementById('b-lb1').addEventListener('click', () => {
   renderLB(); showScreen('s-lb');
